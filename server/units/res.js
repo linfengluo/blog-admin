@@ -8,6 +8,10 @@ const resoposeCode = {
     code: 200,
     msg: '请求成功'
   },
+  update: {
+    code: 200,
+    msg: '更新成功'
+  },
   created: {
     code: 201,
     msg: '新建成功'

@@ -1,3 +1,8 @@
 @import "reset";
-.container {
+@import "var";
+
+.page{
+  &__header{
+    margin-bottom: $space-normal;
+  }
 }

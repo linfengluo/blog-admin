@@ -8,7 +8,9 @@
 <script>
   export default {
     asyncData (context) {
-      return {name: 'World'}
+      return {
+        name: 'World'
+      }
     },
     fetch () {
     },

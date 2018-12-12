@@ -2,39 +2,17 @@
  * Created by linfengluo@gmail.com on 2018/12/10.
  */
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const ArticleSchema = new mongoose.Schema({
   title : String,
-  classify: ObjectId,
+  classify: Schema.Types.ObjectId,
   desc: String,
   content: String,
-  tabs: String,
-  comments: [
-    {
-      body: String,
-      email: String,
-      name: String,
-      date: Date
-    }
-  ],
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
+  tabs: Array,
+}, {
+  timestamps: true
 });
 
-ArticleSchema.statics.findByTitle = function (title, cb) {
-  return this.findOne({
-    title: title
-  })
-}
 
-ArticleSchema.statics.findById = function (id, cb) {
-  return this.findById(id)
-}
-
-module.exports = mongoose.model('admin', ArticleSchema)
+module.exports = mongoose.model('Article', ArticleSchema)

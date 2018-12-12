@@ -39,6 +39,7 @@ module.exports = {
   plugins: [
     '@/plugins/ant-design',
     '@/plugins/axios',
+    '@/plugins/global',
   ],
 
   /*

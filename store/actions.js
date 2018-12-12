@@ -3,6 +3,7 @@
  */
 
 import apiConfig from '../units/apiConfig'
+import * as Type from '../units/types'
 const actions = {
   login({}, data){
     return new Promise((resolve, reject) => {
@@ -18,6 +19,36 @@ const actions = {
         });
     })
   },
+  
+  updateClassify({}, data){
+    console.log(data)
+    return new Promise((resolve, reject) => {
+      this.$axios({
+        method: data.type,
+        url: apiConfig.classify,
+        data: data.params
+      }).then(res => {
+          if (res.code < 400) {
+            resolve(res.data)
+          } else {
+            reject(res.msg)
+          }
+        }).catch(err => {
+          reject(err)
+        });
+    })
+  },
+  
+  getClassify({commit}){
+    this.$axios.get(apiConfig.classify)
+      .then(res => {
+        if (res.code === 200) {
+          commit(Type.SAVE_CLASSIFY, res.data.results)
+        }
+      }).catch(err => {
+        console.log(err)
+      });
+  }
 }
 
 export default actions

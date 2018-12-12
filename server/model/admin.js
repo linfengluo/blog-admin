@@ -6,9 +6,9 @@ const mongoose = require("mongoose");
 const AdminSchema = new mongoose.Schema({
   name : String,
   email: String,
-  password: String,
-  createdAt: Number,
-  updatedAt: Number
+  password: String
+}, {
+  timestamps: true
 });
 
 AdminSchema.statics.findByEmail = function (email, cb) {
@@ -17,4 +17,4 @@ AdminSchema.statics.findByEmail = function (email, cb) {
   })
 }
 
-module.exports = mongoose.model('admin', AdminSchema)
+module.exports = mongoose.model('Admin', AdminSchema)

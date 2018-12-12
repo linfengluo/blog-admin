@@ -6,7 +6,7 @@ const resConf = require('./res')
 function formatRes(type, result = null, msg = null) {
   let isNull = false
   if (type === 'isOk') {
-    isNull = typeof result === "object"
+    isNull = !result || typeof result === "object"
       ? Object.keys(result).length === 0
       : result.length === 0
   }

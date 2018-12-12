@@ -16,6 +16,5 @@ export default function ({ $axios, redirect }) {
   $axios.onResponse(res => {
     const data = res.data
     return Promise.resolve(data);
-    
   })
 }

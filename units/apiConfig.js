@@ -3,7 +3,8 @@
  */
 
 const API = {
-  login: '/api/login'
+  login: '/api/login',
+  classify: '/api/classify'
 }
 
 export default API

@@ -4,5 +4,6 @@
 
 export default () => ({
   admin: null,
-  menuCollapse: false
+  menuCollapse: false,
+  classify: []
 })

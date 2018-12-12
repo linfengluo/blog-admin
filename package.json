@@ -17,6 +17,7 @@
     "ant-design-vue": "^1.1.10",
     "bcryptjs": "^2.4.3",
     "cross-env": "^5.2.0",
+    "dayjs": "^1.7.7",
     "express": "^4.16.3",
     "nuxt": "^2.0.0"
   },

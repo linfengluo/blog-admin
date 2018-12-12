@@ -18,6 +18,7 @@
 <script>
 import {mapMutations, mapState} from 'vuex'
 import AsideLayput from '../components/layout/aside.vue'
+import { TOGGLE_ASIDE } from '../units/types'
 export default {
   data(){
     return {
@@ -27,7 +28,9 @@ export default {
     AsideLayput
   },
   methods: {
-    ...mapMutations(['toggleMenuState'])
+    toggleMenuState(){
+      this.$store.commit(TOGGLE_ASIDE)
+    }
   },
   computed: {
     ...mapState({
