@@ -65,6 +65,7 @@ async function start() {
   app.use(function (err, req, res, next) {
     const originalUrl = req.originalUrl
     if (err) {
+      console.log(err)
       return res.redirect(`/login?from=${encodeURIComponent(originalUrl)}`);
     } else {
       next();

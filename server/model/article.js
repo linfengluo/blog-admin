@@ -10,6 +10,7 @@ const ArticleSchema = new mongoose.Schema({
   desc: String,
   content: String,
   tabs: Array,
+  isShow: Boolean
 }, {
   timestamps: true
 });
