@@ -4,7 +4,8 @@
 
 const API = {
   login: '/api/login',
-  classify: '/api/classify'
+  classify: '/api/classify',
+  article: '/api/article',
 }
 
 export default API

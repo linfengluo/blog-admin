@@ -6,7 +6,10 @@ const Schema = mongoose.Schema;
 
 const ArticleSchema = new mongoose.Schema({
   title : String,
-  classify: Schema.Types.ObjectId,
+  classify: {
+    type: Schema.Types.ObjectId,
+    ref: 'Classify'
+  },
   desc: String,
   content: String,
   tabs: Array,

@@ -48,6 +48,19 @@ const actions = {
       }).catch(err => {
         console.log(err)
       });
+  },
+  
+  getArticles({}, params){
+    return new Promise((resolve, reject) => {
+      this.$axios.get(apiConfig.article, {
+        params
+      })
+        .then(res => {
+          resolve(res.data)
+        }).catch(err => {
+          reject(err)
+        });
+    })
   }
 }
 

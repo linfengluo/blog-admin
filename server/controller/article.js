@@ -31,7 +31,10 @@ const articleController = {
         }
       ]
     }
-    pageQuery(page, pageSize, Article, '', params)
+    pageQuery(page, pageSize, Article, {
+      path: 'classify',
+      select: '_id, label'
+    }, params)
       .then(result => {
         res.json(formatRes('isOk',result))
       })

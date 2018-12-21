@@ -2,7 +2,9 @@
     Created by linfengluo@gmail.com on 2018/12/10.
 -->
 <template>
-  <div>123</div>
+  <section class="articles">
+    <div></div>
+  </section>
 </template>
 
 <script>
