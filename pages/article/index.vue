@@ -110,13 +110,12 @@
         'updateClassify'
       ]),
       handleEdit(data){
-        this.editId = data._id
-        this.toggleModal()
-
-        this.$nextTick(() => {
-          this.form.setFieldsValue({
-            classify: data.label
-          })
+        console.log(data)
+        this.$router.push({
+          name: 'article-edit',
+          query: {
+            id: data._id
+          }
         })
       },
 

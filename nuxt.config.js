@@ -31,6 +31,8 @@ module.exports = {
   */
   css: [
     '~/scss/main.scss',
+    '~/scss/sspai.scss',
+    '~/node_modules/highlight.js/styles/monokai.css',
   ],
 
   /*
