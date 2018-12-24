@@ -10,5 +10,9 @@ export default {
   
   [Types.SAVE_CLASSIFY](state, list){
     state.classify = list
+  },
+  
+  [Types.SET_PAGE_TITLE](state, title){
+    state.pageConf.title = title
   }
 }

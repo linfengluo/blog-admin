@@ -1,13 +1,6 @@
 <template>
   <section class="container">
     <div style="height: 300px;">1</div>
-    <div style="height: 300px;">1</div>
-    <div style="height: 300px;">1</div>
-    <div style="height: 300px;">1</div>
-    <div style="height: 300px;">1</div>
-    <div style="height: 300px;">1</div>
-    <div style="height: 300px;">1</div>
-    <div style="height: 300px;">1</div>
   </section>
 </template>
 

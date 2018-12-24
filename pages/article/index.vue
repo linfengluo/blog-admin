@@ -11,6 +11,9 @@
              :columns="columns"
              :dataSource="articles"
              rowKey="_id"
+             :loading="isLoading"
+             :pagination="pagination"
+             @change="handleTableChange"
     >
       <template slot="action" slot-scope="text, data">
         <span>
@@ -30,6 +33,8 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
+  import {SET_PAGE_TITLE} from '../../units/types'
+  import apiConfig from '../../units/apiConfig'
   const columns = [
     {
       title: '_id',
@@ -66,10 +71,15 @@
 
   export default {
     async asyncData({store, query}) {
+      store.commit('SET_PAGE_TITLE', '文章列表')
       let data = await store.dispatch('getArticles', query)
-      console.log(data)
       return {
-        articles: data.results
+        articles: data.results,
+        pagination: {
+          current: Number(data.current) || 1,
+          pageSize: Number(data.pageSize) || 1,
+          total: Number(data.total) || 0
+        }
       }
     },
     head: {},
@@ -79,6 +89,7 @@
         data: [],
         isShowModal: false,
         editId: '',
+        isLoading: false,
         form: this.$form.createForm(this),
       }
     },
@@ -88,7 +99,11 @@
     },
     mounted(){
     },
-    watch: {},
+    watch: {
+      '$route'(){
+        this.initData()
+      }
+    },
     computed: {
       rowSelection() {
         const {selectedRowKeys} = this;
@@ -109,8 +124,30 @@
       ...mapActions([
         'updateClassify'
       ]),
+      initData(){
+        let query = { ...this.$route.query }
+        this.isLoading = true
+        this.$store.dispatch('getArticles', query)
+          .then(res =>{
+            this.articles = res.results
+            this.isLoading = false
+            this.pagination = {
+              current: Number(res.current) || 1,
+              pageSize: Number(res.pageSize) || 1,
+              total: Number(res.total) || 0
+            }
+          })
+      },
+      handleTableChange (pagination, filters, sorter) {
+        let query = { ...this.$route.query };
+        query.page = pagination.current;
+
+        this.$router.push({
+          name: 'article',
+          query: query
+        })
+      },
       handleEdit(data){
-        console.log(data)
         this.$router.push({
           name: 'article-edit',
           query: {
@@ -118,11 +155,10 @@
           }
         })
       },
-
       handleDelete(id){
         const _this = this
         this.$confirm({
-          title: '确定删除分类？',
+          title: '确定删除文章？',
           okText: 'Yes',
           okType: 'danger',
           cancelText: 'No',
@@ -136,41 +172,32 @@
       },
 
       comfirmDelete(id){
-        this.updateClassify({
-          type: 'delete',
-          params: {
-            id: id
+        this.$axios({
+          method: 'delete',
+          url: apiConfig.article,
+          data: {
+            id: id,
+            noCache: Math.random()
           }
         }).then(res => {
-          this.$message.success('删除成功');
-          this.$store.dispatch('getClassify')
-        })
-      },
-      submitEdit(e){
-        e.preventDefault()
-        this.form.validateFields((err, values) => {
-          if (!err) {
-            let params = {
-              label: values.classify
-            }
-
-            if (this.editId) {
-              params.id = this.editId
-            }
-            this.updateClassify({
-              type: this.editId ? 'put' : 'post',
-              params: params
-            }).then(res => {
-              this.toggleModal()
-              this.$message.success(this.editId ? '更新成功' : '创建成功');
-              this.$store.dispatch('getClassify')
-            })
+          if (res.code < 400) {
+            this.$message.success('删除成功');
+            this.$store.dispatch('getArticles', this.$route.query)
+              .then(res => {
+                this.articles = res.results
+              })
+          } else {
+            this.$message.success(res.msg ? res.msg : '删除失败');
           }
-        })
+        }).catch(err => {
+          this.$message.success('删除失败');
+        });
       },
+
       handleAdd(){
-        this.editId = null
-        this.toggleModal()
+        this.$router.push({
+          name: 'article-edit'
+        })
       },
 
       toggleModal(){

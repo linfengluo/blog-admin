@@ -54,9 +54,12 @@ const articleController = {
   },
   
   delete(req, res, next){
-    const {id} = req.params
-    Article.findByIdAndRemove(id, function (err, doc) {
+    const {id} = req.body
+    Article.deleteOne({
+      _id: id
+    }, function (err, doc) {
       if (err) {
+        console.log(err)
         res.json(formatRes('serverError'))
       }
       res.json(formatRes('isOk', doc))

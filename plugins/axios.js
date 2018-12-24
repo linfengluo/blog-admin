@@ -11,6 +11,9 @@ export default function ({ $axios, redirect }) {
     if (code === 400) {
       redirect('/400')
     }
+    if (code === 401) {
+      redirect(error.response.headers.location || '/login')
+    }
   })
   
   $axios.onResponse(res => {

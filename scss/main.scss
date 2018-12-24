@@ -1,6 +1,12 @@
 @import "reset";
 @import "var";
+.myMarkdown{
+  z-index: 1 !important;
 
+  &.markdown-body{
+    min-height: 500px;
+  }
+}
 .page{
   &__header{
     margin-bottom: $space-normal;

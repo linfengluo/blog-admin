@@ -21,7 +21,6 @@ const actions = {
   },
   
   updateClassify({}, data){
-    console.log(data)
     return new Promise((resolve, reject) => {
       this.$axios({
         method: data.type,

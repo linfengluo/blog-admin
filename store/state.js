@@ -5,5 +5,8 @@
 export default () => ({
   admin: null,
   menuCollapse: false,
-  classify: []
+  classify: [],
+  pageConf: {
+    title: ''
+  }
 })

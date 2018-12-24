@@ -28,6 +28,10 @@ const resoposeCode = {
     code: 400,
     msg: '无效请求'
   },
+  unAuth: {
+    code: 401,
+    msg: '未授权'
+  },
   noFound: {
     code: 404,
     msg: '资源不存在'

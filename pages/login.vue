@@ -56,11 +56,16 @@ export default {
   methods: {
     handleSubmit (e) {
       e.preventDefault()
+      const redirect = this.$route.query.from || '/'
       this.form.validateFields((err, values) => {
         if (!err) {
           this.$store.dispatch('login', values)
             .then(res => {
-              console.log(res)
+              this.$message.success('登录成功');
+              this.$router.push(redirect)
+            })
+            .catch(err => {
+              this.$message.error(err);
             })
         }
       })

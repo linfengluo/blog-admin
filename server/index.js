@@ -14,6 +14,7 @@ const api = require('./router/index')
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
+const formatRes = require('./units/formatRes')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -32,7 +33,9 @@ config.dev = !(process.env.NODE_ENV === 'production')
 async function start() {
   
   const DB = mongoose.connection;
-  mongoose.connect(mongodbLink);
+  mongoose.connect(mongodbLink, {
+    useNewUrlParser: true
+  });
   
   DB.on('error', console.error.bind(console, 'connection error:'));
   DB.once('open', function() {
@@ -63,10 +66,13 @@ async function start() {
   }));
   
   app.use(function (err, req, res, next) {
-    const originalUrl = req.originalUrl
+    const originalUrl = req.originalUrl.replace(/\/api/ig, '')
+    const url = `/login?from=${encodeURIComponent(originalUrl)}`
     if (err) {
-      console.log(err)
-      return res.redirect(`/login?from=${encodeURIComponent(originalUrl)}`);
+      res.writeHead(401, {
+        'Location': url
+      })
+      res.end()
     } else {
       next();
     }

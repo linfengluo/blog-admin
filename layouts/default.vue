@@ -3,11 +3,20 @@
     <AsideLayput />
     <a-layout class="layout">
       <a-layout-header class="layout__header">
-        <a-icon
-          class="trigger"
-          :type="menuCollapse ? 'menu-unfold' : 'menu-fold'"
-          @click="toggleMenuState"
-        />
+        <div>
+          <a-icon
+            class="trigger"
+            :type="menuCollapse ? 'menu-unfold' : 'menu-fold'"
+            @click="toggleMenuState"
+          />
+        </div>
+        <div>
+          <h2>{{ title }}</h2>
+        </div>
+        <div>
+
+        </div>
+
       </a-layout-header>
       <a-layout-content class="layout__content">
         <nuxt/>
@@ -34,7 +43,8 @@ export default {
   },
   computed: {
     ...mapState({
-      menuCollapse: state => state.menuCollapse
+      menuCollapse: state => state.menuCollapse,
+      title: state=> state.pageConf.title
     })
   }
 }
@@ -56,6 +66,12 @@ export default {
   &__header{
     background: #fff;
     padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+
+    .trigger{
+      cursor: pointer;
+    }
   }
 }
 </style>

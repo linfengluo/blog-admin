@@ -46,6 +46,7 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
+  import {SET_PAGE_TITLE} from '../../units/types'
   const columns = [
     {
       title: '_id',
@@ -71,6 +72,7 @@
 
   export default {
     async asyncData({store}) {
+      store.commit('SET_PAGE_TITLE', '分类列表')
       store.dispatch('getClassify');
       return {}
     },
