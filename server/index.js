@@ -9,11 +9,12 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const jwtConfig = require('./config/jwt')
 const mongodbLink = require('./config/mongodb')
+// const MongoDBStore = require('connect-mongodb-session')(session);
 const { Nuxt, Builder } = require('nuxt')
 const api = require('./router/index')
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3301
 const formatRes = require('./units/formatRes')
 
 app.use(bodyParser.json())
@@ -22,6 +23,7 @@ app.use(cookieParser())
 app.use(session({
   secret: 'feng',
   resave: false,
+  cookie: { secure: true },
   saveUninitialized: false
 }))
 app.set('port', port)

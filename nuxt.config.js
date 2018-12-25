@@ -56,6 +56,8 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    credentials: true,
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://admin.luolinfeng.com/' : 'http://localhost:3301/'
   },
 
   /*
