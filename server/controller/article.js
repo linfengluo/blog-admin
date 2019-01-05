@@ -5,6 +5,7 @@
 const formatRes = require('../units/formatRes')
 const Article = require('../model/article')
 const {pageQuery} = require('../units/pageQuery')
+const markData = require('../units/maked')
 const articleController = {
   getList(req, res, next){
     const {page, pageSize, classify, searchKey} = req.query
@@ -25,7 +26,7 @@ const articleController = {
           }
         },
         {
-          esc : {
+          desc : {
             $regex : searchKey
           }
         }
@@ -67,7 +68,14 @@ const articleController = {
   },
   
   create(req, res, next){
-    const {title, classify, desc, content, tabs, isShow} = req.body
+    const {title, classify, content, tabs, isShow} = req.body
+  
+    const data = content.split(/<!-- +more +-->/ig);
+    
+    let desc = ''
+    if (data.length > 0) {
+      desc = markData(data[0])
+    }
     Article.create({
       title, classify, desc, content, tabs, isShow
     }, function (err, doc) {
@@ -81,7 +89,14 @@ const articleController = {
   },
   
   update(req, res, next){
-    const {id, title, classify, desc, content, tabs, isShow} = req.body
+    const {id, title, classify, content, tabs, isShow} = req.body
+  
+    const data = content.split(/<!-- +more +-->/ig);
+  
+    let desc = ''
+    if (data.length > 0) {
+      desc = markData(data[0])
+    }
     Article.findOneAndUpdate({
       _id: id
     }, {
