@@ -5,7 +5,6 @@
 const formatRes = require('../units/formatRes')
 const Article = require('../model/article')
 const {pageQuery} = require('../units/pageQuery')
-const markData = require('../units/maked')
 const articleController = {
   getList(req, res, next){
     const {page, pageSize, classify, searchKey} = req.query
@@ -74,7 +73,7 @@ const articleController = {
     
     let desc = ''
     if (data.length > 0) {
-      desc = markData(data[0])
+      desc = data[0]
     }
     Article.create({
       title, classify, desc, content, tabs, isShow
@@ -95,7 +94,7 @@ const articleController = {
   
     let desc = ''
     if (data.length > 0) {
-      desc = markData(data[0])
+      desc = data[0]
     }
     Article.findOneAndUpdate({
       _id: id
