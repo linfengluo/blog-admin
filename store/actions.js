@@ -70,6 +70,17 @@ const actions = {
           reject(err)
         });
     })
+  },
+  
+  getAbout({}){
+    return new Promise((resolve, reject) => {
+      this.$axios.get(apiConfig.about)
+        .then(res => {
+          resolve(res ? res.data : null)
+        }).catch(err => {
+          reject(err)
+        });
+    })
   }
 }
 

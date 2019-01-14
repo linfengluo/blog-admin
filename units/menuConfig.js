@@ -18,6 +18,12 @@ const MENU_LIST = [
     route: {
       name: 'article'
     }
+  },
+  {
+    label: '关于',
+    route: {
+      name: 'about'
+    }
   }
 ]
 
