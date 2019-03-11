@@ -60,6 +60,13 @@
       <a-form-item
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
+        label='草稿'
+      >
+        <a-switch v-model="article.isShow" v-decorator="['isShow']"/>
+      </a-form-item>
+      <a-form-item
+        :labelCol="labelCol"
+        :wrapperCol="wrapperCol"
         label='内容'
       >
         <MarkdonInput v-decorator="[
@@ -101,6 +108,7 @@ export default {
       isShow: true,
       tabs: [],
       title: "",
+      isShow: true
     }
     if (query.id) {
       data = await store.dispatch('getArticle', query.id).then(res => {return res});
